@@ -1,0 +1,27 @@
+[user]
+	name = Andy Fowler
+	email = andy@andyfowler.com
+[alias]
+	st = status
+	di = diff
+	co = checkout
+	ci = commit
+	br = branch
+	sta = stash
+	sub = submodule
+	pre = pull --rebase
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[core]
+	editor = mate -w
+	excludesfile = "/Users/afowler/.gitignore"
+	whitespace=-trailing-space
+[merge]
+	tool = opendiff
+[github]
+	user = andyfowler
+	token = 01ec68d9da02e78f293e5b1c4290a6f3
+[http]
+	sslCAInfo = "/Users/afowler/Dropbox/nutshell general/public keys/ca.crt"

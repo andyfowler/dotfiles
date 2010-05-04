@@ -1,0 +1,4 @@
+# applies to all git repos. dangerous
+# DANGER, there should be two ^Ms after Icon. Don't let textmate mangle it.
+.tmtags
+Icon
