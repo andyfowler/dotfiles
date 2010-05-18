@@ -26,5 +26,5 @@ alias ll="ls -al"
 
 alias ssh="ssh -A"
 
-alias pu="phpunit"
+# alias pu="phpunit"
 alias pus="phpunit --stop-on-failure"
