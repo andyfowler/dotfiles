@@ -1,6 +1,6 @@
 [user]
-	name = Andy Fowler
-	email = andy@andyfowler.com
+	name = __USER_NAME__
+	email = __USER_EMAIL__
 [alias]
 	st = status
 	di = diff
@@ -22,7 +22,7 @@
 [merge]
 	tool = opendiff
 [github]
-	user = andyfowler
-	token = 01ec68d9da02e78f293e5b1c4290a6f3
+	user = __GITHUB_USER__
+	token = __GITHUB_TOKEN__
 [http]
 	sslCAInfo = "/Users/afowler/Dropbox/nutshell general/public keys/ca.crt"
