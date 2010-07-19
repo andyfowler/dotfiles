@@ -1,5 +1,6 @@
 # applies to all git repos. dangerous
 # DANGER, there should be two ^Ms after Icon. Don't let textmate mangle it.
+.DS_Store
 .tmtags
 library/test.php
 Icon

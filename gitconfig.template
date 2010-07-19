@@ -15,6 +15,7 @@
 	diff = auto
 	status = auto
 	branch = auto
+	ui = auto
 [core]
 	editor = mate -w
 	excludesfile = "/Users/afowler/.gitignore"
