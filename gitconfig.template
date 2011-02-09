@@ -19,7 +19,7 @@
 	branch = auto
 	ui = auto
 [core]
-	editor = mate -w
+    editor = vim
 	excludesfile = "/Users/afowler/.gitignore"
 	whitespace=-trailing-space
 [merge]
@@ -27,5 +27,3 @@
 [github]
 	user = __GITHUB_USER__
 	token = __GITHUB_TOKEN__
-[http]
-	sslCAInfo = "/Users/afowler/Dropbox/nutshell general/public keys/ca.crt"
