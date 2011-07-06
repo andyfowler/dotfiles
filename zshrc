@@ -18,7 +18,6 @@ source $ZSH/oh-my-zsh.sh
 
 alias s="sudo su -"
 
-alias ls="ls -G"
 alias ll="ls -al"
 
 alias ssh="ssh -A"
