@@ -1,0 +1,22 @@
+vbell           off
+defscrollback   20000
+autodetach      on
+
+escape ``
+
+# status
+hardstatus alwayslastline "%{= kw}%{g}[ %{R}%H %{g}] %{Y} %{g}[%=%{ =kw}%{w}%-w%{Y}[%{W}%n-%t%{Y}]%{w}%+w%=%{g}][ %{w}%m-%d %{Y}%c %{g}]"
+
+
+# add caption
+caption splitonly "%{= kw}%?%-Lw%?%{kw}%n*%t%f %?(%u)%?%{= kw}%?%+Lw%?"
+
+# xterm scrollback
+termcapinfo xterm ti@:te@
+startup_message	off
+
+# Tell Screen to write its copy buffer to a temporary file (defaults to
+# /tmp/screen-exchange), and then send that file to `pbcopy`.
+# Bound the command to C-a b
+# http://www.samsarin.com/blog/2007/03/11/gnu-screen-working-with-the-scrollback-buffer/
+bind b eval "writebuf" "exec sh -c 'pbcopy < /tmp/screen-exchange'"

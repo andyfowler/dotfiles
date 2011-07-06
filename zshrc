@@ -16,9 +16,6 @@ export ZSH_THEME="afowler"
 
 source $ZSH/oh-my-zsh.sh
 
-export PATH=/opt/local/share/doc/ZendFramework/bin/:/opt/local/apache2/bin:/opt/local/bin:/opt/local/sbin:$PATH
-
-
 alias s="sudo su -"
 
 alias ls="ls -G"
