@@ -22,7 +22,7 @@ fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
-Appears at the beginning of (and during) of command execution
+# Appears at the beginning of (and during) of command execution
 function preexec {
   emulate -L zsh
   setopt extended_glob
