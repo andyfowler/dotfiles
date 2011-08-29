@@ -22,7 +22,7 @@
 require 'rake'
 
 desc "install the dot files into user's home directory"
-task :install => :generate_gitconfig_from_template do
+task :install do
   replace_all = false
   Dir['*'].each do |file|
     # edit
