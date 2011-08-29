@@ -16,11 +16,4 @@ export DISABLE_AUTO_UPDATE="true"
 
 source $ZSH/oh-my-zsh.sh
 
-alias s="sudo su -"
-
-alias ll="ls -al"
-
-alias ssh="ssh -A"
-
-# alias pu="phpunit"
-alias pus="phpunit --stop-on-failure"
+source $HOME/.afowler.zsh
