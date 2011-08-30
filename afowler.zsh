@@ -17,7 +17,7 @@ if (( ${+SSH_CLIENT} )); then
   ZSH_THEME_TERM_TITLE_IDLE="%n@%m:%~"
 else # local shell
   ZSH_THEME_TERM_TAB_TITLE_IDLE="%18<..<%~%<<" #left truncated pwd
-  ZSH_THEME_TERM_TITLE_IDLE="%m:%~"
+  ZSH_THEME_TERM_TITLE_IDLE="%~"
 fi
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
