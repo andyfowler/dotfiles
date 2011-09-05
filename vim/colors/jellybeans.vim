@@ -397,6 +397,10 @@ hi link javaScriptRegexpString rubyRegexp
 " Tag list
 hi link TagListFileName Directory
 
+" afowler customizations
+call s:X("StatusLine","397bbd","222222","italic","","")
+call s:X("StatusLineNC","a0a0a0","000000","italic","","")
+
 " delete functions {{{
 delf s:X
 delf s:rgb
