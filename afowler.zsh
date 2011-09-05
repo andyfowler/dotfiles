@@ -3,6 +3,7 @@ alias ll="ls -al"
 alias ssh="ssh -A"
 alias pus="phpunit --stop-on-failure"
 alias pgrep='ps auxwww | grep'
+alias less="less -r"
 
 # thanks ablyler :)
 alias metar='curl -s -d "station_ids=karb,kozw,kyip,kptk,kphn,kadg,kdtw,kttf,konz,klan,kjxn,ktol,kduh,kgrr" http://aviationweather.gov/adds/metars/index.php | html2text -width 100 | sed "1,4d"'
