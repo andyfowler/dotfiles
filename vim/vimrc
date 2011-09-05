@@ -48,5 +48,8 @@ if has("autocmd")
     \| exe "normal g'\"" | endif
 endif
 
-" Command-T configuration
+" Command-T config
 let g:CommandTMaxHeight=30
+
+" Fugitive config
+map <Leader>gs  :Gstatus<CR>
