@@ -75,6 +75,7 @@ let g:CommandTMaxHeight=30
 
 " Leader shortcuts
 map <leader>gs  :Gstatus<CR>
+map <leader>n :NERDTreeToggle<CR>
 map <leader>w :w!<cr>
 
 
