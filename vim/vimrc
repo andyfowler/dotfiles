@@ -12,6 +12,15 @@ set laststatus=2
 
 set cmdheight=2
 
+" initialize janus for other plugin loading
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect()
+
+" Color-related
+set t_Co=256
+set background=dark
+color jellybeans
+
 " Set encoding
 set encoding=utf-8
 
@@ -49,10 +58,6 @@ else
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
-" initialize janus for other plugin loading
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -69,8 +74,17 @@ endif
 let g:CommandTMaxHeight=30
 
 " Leader shortcuts
-map <Leader>gs  :Gstatus<CR>
+map <leader>gs  :Gstatus<CR>
+map <leader>w :w!<cr>
+
 
 " Command tweaks
 command! W :w
+cmap w!! w !sudo tee % >/dev/null
 
+" Other shortcuts
+" easier window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
