@@ -3,4 +3,7 @@
 .DS_Store
 .tmtags
 library/test.php
-Icon
+Icon
+
+*.sublime-workspace
+sublime-project

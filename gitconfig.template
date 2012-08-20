@@ -3,8 +3,8 @@
 	email = __USER_EMAIL__
 [alias]
 	st = status -sb
-	di = diff
-	wdiff = diff --word-diff
+	diffw = diff --word-diff=color
+	diffi = diff --ignore-submodules
 	co = checkout
 	ci = commit
 	br = branch
@@ -13,6 +13,7 @@
 	pre = pull --rebase
 	lg = log --graph --pretty=format:'%Cred%h%Creset %C(cyan)%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	tags = tag -l
+	push = push --recurse-submodules=check
 [color]
 	diff = auto
 	status = auto
@@ -22,6 +23,8 @@
     editor = vim
 	excludesfile = "/Users/afowler/.gitignore"
 	whitespace=-trailing-space
+[pager]
+	diff = "less -r"
 [merge]
 	tool = opendiff
 [github]

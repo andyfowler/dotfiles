@@ -29,9 +29,13 @@ set nowrap
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-set expandtab
+set noexpandtab
 set listchars=tab:\ \ ,trail:·
 set autoindent
+
+" wrap / break stuff
+set wrap " wrap long lines
+set textwidth=120 " default to wideish lines
 
 " Searching
 set hlsearch
@@ -70,6 +74,9 @@ if has("autocmd")
     \| exe "normal g'\"" | endif
 endif
 
+" Reload file if not changed in vim when changed externally
+set autoread
+
 " Command-T config
 let g:CommandTMaxHeight=30
 
@@ -77,6 +84,7 @@ let g:CommandTMaxHeight=30
 map <leader>gs  :Gstatus<CR>
 map <leader>n :NERDTreeToggle<CR>
 map <leader>w :w!<cr>
+map <leader>j :LustyJuggler<CR>
 
 
 " Command tweaks

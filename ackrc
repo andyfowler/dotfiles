@@ -3,4 +3,10 @@
 --context=1
 --follow
 --group
---all
+--ignore-dir=/Users/afowler/Sites/nutshell/public/include/csscache
+--type-add
+html=.phtml
+--type-set
+less=.less
+--type-set
+markdown=.md
