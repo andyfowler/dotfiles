@@ -13,6 +13,7 @@ alias taf='curl -s "http://aviationweather.gov/adds/metars/index.php?submit=1&st
 alias notams='curl -s "https://pilotweb.nas.faa.gov/PilotWeb/notamRetrievalByICAOAction.do?method=displayByICAOs&formatType=DOMESTIC&retrieveLocId=karb&reportType=RAW&actionType=notamRetrievalByICAOs" |pcregrep -M -o1 -N CRLF -i "<pre>([^<]*)"'
 
 export NODE_PATH=/usr/local/lib/node_modules
+export EDITOR="subl"
 
 bindkey "^U" backward-kill-line
 unsetopt auto_pushd
