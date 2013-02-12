@@ -77,7 +77,7 @@ host_name() {
   echo "%{$FG[153]%}%m%{$reset_color%}"
 }
 
-export PROMPT=$'\n$(host_name) $(directory_name) $(git_status) \n•› '
+export PROMPT=$'\n$(host_name) $(directory_name) $(git_status) \n› '
 set_prompt () {
   export RPROMPT="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 }
