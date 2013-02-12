@@ -1,0 +1,48 @@
+[user]
+	name = Andy Fowler
+	email = afowler@nutshell.com
+
+[alias]
+	st = status -sb
+	diffw = diff --word-diff=color
+	diffi = diff --ignore-submodules
+	co = checkout
+	ci = commit
+	br = branch
+	sub = submodule
+	pre = pull --rebase
+	lg = log --graph --pretty=format:'%Cred%h%Creset %C(cyan)%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	tags = tag -l
+	push = push --recurse-submodules=check
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = auto
+
+[core]
+    editor = vim
+	excludesfile = ~/.gitignore
+
+[pager]
+	diff = "less -r"
+
+[merge]
+	tool = opendiff
+
+[credential]
+	helper = osxkeychain
+
+[hub]
+	protocol = https
+
+[help]
+	autocorrect = 1
+
+[push]
+        # See `git help config` (search for push.default)
+        # for more information on different options of the below setting.
+        #
+        # Setting to git 2.0 default to surpress warning message
+        default = simple

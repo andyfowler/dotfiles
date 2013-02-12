@@ -1,0 +1,9 @@
+{
+	"installed_packages":
+	[
+		"INI",
+		"LESS",
+		"Package Control",
+		"SublimeLinter"
+	]
+}

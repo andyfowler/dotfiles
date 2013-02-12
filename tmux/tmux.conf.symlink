@@ -1,0 +1,69 @@
+unbind-key C-b
+set-option -g prefix `
+bind-key ` send-prefix
+bind-key C-b set-option -g prefix C-b
+bind-key C-a set-option -g prefix `
+
+bind-key v split-window -h
+bind-key h split-window -v
+
+bind-key s choose-session
+
+# live dangerous, no confirmation on killing windows/panes
+unbind-key &
+bind-key & kill-window
+unbind-key x
+bind-key x kill-pane
+
+set-window-option -g window-status-content-fg red
+set-window-option -g window-status-content-bg white
+
+set-window-option -g window-status-bell-fg yellow
+set-window-option -g window-status-bell-bg white
+
+set -g pane-border-bg black
+set -g pane-border-fg white
+set -g pane-active-border-bg colour232
+set -g pane-active-border-fg colour27
+
+# status bar (except titles)
+set -g status-bg colour234
+set -g status-fg colour193
+
+# default window title colors
+set-window-option -g window-status-fg white
+set-window-option -g window-status-bg default
+set-window-option -g window-status-attr dim
+
+# active window title colors
+set-window-option -g window-status-current-fg colour105
+set-window-option -g window-status-current-bg default
+set-window-option -g window-status-current-attr bright
+
+# center align the window list
+set -g status-justify centre
+
+# start numbering windows @ 1
+set -g base-index 1
+
+set-option -g status-keys vi
+set-window-option -g mode-keys vi
+
+set -sg escape-time 0
+
+# keep tmux msgs around longer
+set -g display-time 3000
+
+# scrollback buffer size
+set -g history-limit 15000
+
+# open a man page in new pane or window
+bind m command-prompt -p "man page:" "split-window -v 'exec man %%'"
+bind M command-prompt -p "Man page:" "new-window -n 'man %1' 'exec man %1'"
+
+set -g default-terminal "screen-256color"
+set -g set-titles on
+setw -g automatic-rename on
+
+# load my custom windows
+# bind-key N source-file ~/Dropbox/sync/dotfiles/tmux-local/drones

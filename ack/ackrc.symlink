@@ -1,0 +1,12 @@
+--sort-files
+--color
+--context=1
+--follow
+--group
+--ignore-dir=csscache
+--type-add
+html=.phtml
+--type-set
+less=.less
+--type-set
+markdown=.md
