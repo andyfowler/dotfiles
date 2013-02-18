@@ -27,18 +27,14 @@ set -g pane-active-border-bg colour232
 set -g pane-active-border-fg colour27
 
 # status bar (except titles)
-set -g status-bg colour234
-set -g status-fg colour193
+set -g status-left-length 10
+set -g status-left '#[fg=colour235,bg=colour252,bold] #S '
 
-# default window title colors
-set-window-option -g window-status-fg white
-set-window-option -g window-status-bg default
-set-window-option -g window-status-attr dim
+set -g status-right-length 0
+set -g status-right ''
 
-# active window title colors
-set-window-option -g window-status-current-fg colour105
-set-window-option -g window-status-current-bg default
-set-window-option -g window-status-current-attr bright
+set -g window-status-format '#[fg=white,bg=colour234] #I #W '
+set -g window-status-current-format '#[fg=colour25,bg=colour39,noreverse,bold] #I #W '
 
 # center align the window list
 set -g status-justify centre
@@ -65,5 +61,3 @@ set -g default-terminal "screen-256color"
 set -g set-titles on
 setw -g automatic-rename on
 
-# load my custom windows
-# bind-key N source-file ~/Dropbox/sync/dotfiles/tmux-local/drones
