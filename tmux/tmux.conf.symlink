@@ -17,18 +17,15 @@ bind-key & kill-window
 unbind-key x
 bind-key x kill-pane
 
-set-window-option -g window-status-content-fg red
-set-window-option -g window-status-content-bg white
-
-set-window-option -g window-status-bell-fg yellow
-set-window-option -g window-status-bell-bg white
-
 set -g pane-border-bg black
 set -g pane-border-fg white
 set -g pane-active-border-bg colour232
 set -g pane-active-border-fg colour27
 
 # status bar (except titles)
+set -g status-fg white
+set -g status-bg colour234
+
 set -g status-left-length 10
 set -g status-left '#[fg=colour235,bg=colour252,bold] #S '
 
@@ -36,7 +33,7 @@ set -g status-right-length 0
 set -g status-right ''
 
 set -g window-status-format '#[fg=white,bg=colour234] #I #W '
-set -g window-status-current-format '#[fg=colour25,bg=colour39,noreverse,bold] #I #W '
+set -g window-status-current-format '#[fg=colour25,bg=colour45,noreverse,bold] #I #W '
 
 # center align the window list
 set -g status-justify centre
