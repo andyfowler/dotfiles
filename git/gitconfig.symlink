@@ -45,4 +45,5 @@
         # for more information on different options of the below setting.
         #
         # Setting to git 2.0 default to surpress warning message
-        default = simple
+        # commenting out for now, until i figure out what to do about older gits :\
+        # default = simple
