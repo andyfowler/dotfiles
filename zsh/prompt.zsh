@@ -78,11 +78,7 @@ host_name() {
 }
 
 export PROMPT=$'\n$(host_name) $(directory_name) $(git_status) \n› '
-set_prompt () {
-  export RPROMPT="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
-}
 
 precmd() {
-  title "zsh" "%m" "%55<...<%~"
-  set_prompt
+  export RPROMPT="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 }
