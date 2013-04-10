@@ -10,6 +10,7 @@
 	[
 		"Vintage"
 	],
+	"trim_automatic_white_space": true,
 	"trim_trailing_white_space_on_save": false,
-	"trim_automatic_white_space": true
+	"word_wrap": true
 }

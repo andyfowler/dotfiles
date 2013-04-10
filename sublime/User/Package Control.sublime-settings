@@ -1,6 +1,9 @@
 {
 	"installed_packages":
 	[
+		"CoffeeScript",
+		"ColorPick",
+		"Format SQL",
 		"INI",
 		"LESS",
 		"Package Control",
