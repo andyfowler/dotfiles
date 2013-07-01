@@ -3,10 +3,12 @@
 	[
 		"CoffeeScript",
 		"ColorPick",
+		"Cucumber",
 		"Format SQL",
 		"INI",
 		"LESS",
 		"Package Control",
-		"SublimeLinter"
+		"SublimeLinter",
+		"TrailingSpaces"
 	]
 }
