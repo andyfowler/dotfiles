@@ -14,6 +14,8 @@
 	lg = log --graph --pretty=format:'%Cred%h%Creset %C(cyan)%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
 	tags = tag -l
 	push = push --recurse-submodules=check
+	branch-s = for-each-ref --sort='-*committerdate' --format="%(refname:short)" refs/heads refs/remotes
+	br-s = "! git branch-s"
 
 [color]
 	diff = auto
