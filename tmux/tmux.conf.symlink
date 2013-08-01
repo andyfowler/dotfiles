@@ -4,8 +4,6 @@ bind-key ` send-prefix
 bind-key C-b set-option -g prefix C-b
 bind-key C-a set-option -g prefix `
 
-bind-key v split-window -h
-bind-key h split-window -v
 bind | split-window -h
 bind _ split-window -v
 
@@ -22,11 +20,35 @@ set -g pane-border-fg white
 set -g pane-active-border-bg colour232
 set -g pane-active-border-fg colour27
 
+# Mouse setup
+set -g mode-mouse on
+setw -g mouse-select-window on
+setw -g mouse-select-pane on
+setw -g mouse-resize-pane on
+
 # Vim-style pane movement
 bind h select-pane -L
 bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
+
+# arrow keys for pane movement (until i muscle memory the vim-style)
+# but the default uses `bind -r` which allows multiple presses, which
+# is problematic when going up a pane, and then wanting to arrow-up
+# in command history
+bind Up    select-pane -U
+bind Down  select-pane -D
+bind Left  select-pane -L
+bind Right select-pane -R
+
+# Pane resizing
+bind -r C-h resize-pane -L 5
+bind -r C-j resize-pane -D 5
+bind -r C-k resize-pane -U 5
+bind -r C-l resize-pane -R 5
+
+# reload tmux config
+bind r source-file ~/.tmux.conf \; display "Reloaded ~/.tmux.conf"
 
 # status bar (except titles)
 set -g status-fg white
