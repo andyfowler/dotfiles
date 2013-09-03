@@ -9,3 +9,7 @@ fi
 # see also aliases.zsh for GNU ls
 export CLICOLOR=1
 # export LSCOLORS=exfxcxdxbxegedabagacad # this is currently the default, someday i'll twek it
+
+if [[ -a ~/.aws.ini ]]; then
+	export AWS_CONFIG_FILE=~/.aws.ini
+fi
