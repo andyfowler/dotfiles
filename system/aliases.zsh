@@ -7,3 +7,5 @@ alias pgrep='ps auxwww | grep'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+
+alias vbm="VBoxManage" # goddamn capitalization in binaries
