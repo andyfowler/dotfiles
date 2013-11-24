@@ -9,3 +9,5 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 alias vbm="VBoxManage" # goddamn capitalization in binaries
+
+alias be="bundle exec"
