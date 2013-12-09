@@ -30,6 +30,6 @@ function set_title() { # called before a command is executed, code via oh-my-zsh
   fi
 }
 
-autoload -U add-zsh-hook
-add-zsh-hook precmd  set_idle_title
-add-zsh-hook preexec set_title
+# autoload -U add-zsh-hook
+# add-zsh-hook precmd  set_idle_title
+# add-zsh-hook preexec set_title
