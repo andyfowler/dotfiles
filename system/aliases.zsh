@@ -11,3 +11,8 @@ alias ....='cd ../../..'
 alias vbm="VBoxManage" # goddamn capitalization in binaries
 
 alias be="bundle exec"
+
+function take() {
+  mkdir -p $1
+  cd $1
+}
