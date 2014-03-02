@@ -9,3 +9,8 @@ bindkey '^u' backward-kill-line
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey '\C-x\C-e' edit-command-line
+
+# change word operations (kill / navigate) to include slash as a word separator
+# has the affect of being able to treat individual directory paths as words
+autoload -U select-word-style
+select-word-style bash
