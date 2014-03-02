@@ -1,20 +1,14 @@
 {
-	"auto_upgrade_last_run": null,
 	"installed_packages":
 	[
 		"Base16 Color Schemes",
 		"ChangeQuotes",
 		"CoffeeScript",
-		"Color Highlighter",
-		"ColorPick",
 		"Cucumber",
 		"DashDoc",
 		"DocBlockr",
-		"FileDiffs",
-		"Format SQL",
 		"Handlebars",
 		"INI",
-		"Jimbly's Clipboard History",
 		"JSHint Gutter",
 		"LESS",
 		"nginx",
@@ -22,6 +16,9 @@
 		"Sass",
 		"sublime-github",
 		"SublimeLinter",
+		"SublimeLinter-jshint",
+		"SublimeLinter-php",
+		"SublimeLinter-ruby",
 		"Theme - Spacegray",
 		"TrailingSpaces"
 	]
