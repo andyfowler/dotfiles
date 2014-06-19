@@ -93,4 +93,14 @@ defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 # Disable local Time Machine backups
 hash tmutil &> /dev/null && sudo tmutil disablelocal
 
-
+# Install SkalaColor – http://bjango.com/mac/skalacolor/
+if [ ! -d $HOME/Library/ColorPickers/SkalaColor.colorPicker ]; then
+  echo "Installing SkalaColor – http://bjango.com/mac/skalacolor/"
+  sc_zip_file=/tmp/skalacolor.zip
+  sc_unzip=/tmp/skalacolor
+  rm -rf $sc_zip_file $sc_unzip
+  curl -Ls http://download.bjango.com/skalacolor/ -o $sc_zip_file
+  unzip /tmp/skalacolor.zip -d $sc_unzip > /dev/null 2>&1
+  mv $sc_unzip/Skala\ Color\ Installer.app/Contents/Resources/SkalaColor.colorPicker ~/Library/ColorPickers/.
+  [ -d $HOME/Library/ColorPickers/SkalaColor.colorPicker ] && echo "✔︎ Success" || echo "‼ Error"
+fi
