@@ -13,3 +13,5 @@ export CLICOLOR=1
 if [[ -a ~/.aws.ini ]]; then
 	export AWS_CONFIG_FILE=~/.aws.ini
 fi
+
+export MYSQL_PS1="[$(hostname -s):\\d]> "
