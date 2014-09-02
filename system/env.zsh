@@ -1,6 +1,6 @@
-if which subl &> /dev/null
+if which atom &> /dev/null
 then
-	export EDITOR='subl'
+	export EDITOR='atom'
 else
 	export EDITOR='vim'
 fi
