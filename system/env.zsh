@@ -10,6 +10,8 @@ fi
 export CLICOLOR=1
 # export LSCOLORS=exfxcxdxbxegedabagacad # this is currently the default, someday i'll twek it
 
+export GREP_OPTIONS="--color=auto"
+
 if [[ -a ~/.aws.ini ]]; then
 	export AWS_CONFIG_FILE=~/.aws.ini
 fi
