@@ -1,4 +1,7 @@
 {
+	"in_process_packages":
+	[
+	],
 	"installed_packages":
 	[
 		"Base16 Color Schemes",
@@ -7,13 +10,14 @@
 		"Cucumber",
 		"DashDoc",
 		"DocBlockr",
+		"GitGutter",
 		"Handlebars",
 		"INI",
 		"JSHint Gutter",
 		"LESS",
-		"Liquid",
 		"nginx",
 		"Package Control",
+		"PHP Companion",
 		"Sass",
 		"sublime-github",
 		"SublimeLinter",

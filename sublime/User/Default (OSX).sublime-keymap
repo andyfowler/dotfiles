@@ -2,5 +2,6 @@
   { "keys": ["super+ctrl+v"], "command": "paste" },
   { "keys": ["super+v"], "command": "paste_and_indent" },
   { "keys": ["ctrl+shift+'"], "command": "change_quotes" },
-  { "keys": ["ctrl+super+r"], "command": "reveal_in_side_bar" }
+  { "keys": ["ctrl+super+r"], "command": "reveal_in_side_bar" },
+  { "keys": ["ctrl+]"], "command": "goto_definition" },
 ]

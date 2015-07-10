@@ -1,7 +1,7 @@
 {
 	"atomic_save": false,
 	"bold_folder_labels": true,
-	"color_scheme": "Packages/User/base16-eighties.dark (SL).tmTheme",
+	"color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
 	"enable_tab_scrolling": false,
 	"ensure_newline_at_eof_on_save": true,
 	"fade_fold_buttons": false,
