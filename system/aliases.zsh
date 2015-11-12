@@ -17,3 +17,7 @@ function take() {
   mkdir -p $1
   cd $1
 }
+
+# fix some mac commands that don't work in tmux
+alias subl='reattach-to-user-namespace subl'
+alias open='reattach-to-user-namespace open'
