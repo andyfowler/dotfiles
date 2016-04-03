@@ -35,10 +35,3 @@ do
 done
 
 unset config_files
-
-# Pairing in git
-# via http://thepugautomatic.com/2013/11/git-pairing/
-alias pair='echo "Committing as: `git config user.name` <`git config user.email`>"'
-alias unpair="git config --remove-section user 2> /dev/null; echo Unpaired.; pair"
-
-alias pairm="git config user.pair 'AF+ML' && git config user.name 'Andy Fowler and Mike Linington' && git config user.email 'developers+afowler+mlinington@nutshell.com'; pair"
