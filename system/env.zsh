@@ -1,6 +1,6 @@
-if which atom &> /dev/null
+if which atom-beta &> /dev/null
 then
-	export EDITOR='atom'
+	export EDITOR='atom-beta -w'
 else
 	export EDITOR='vim'
 fi
