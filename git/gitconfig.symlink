@@ -24,7 +24,7 @@
 	ui = auto
 
 [core]
-    editor = vim
+	editor = vim
 	excludesfile = ~/.gitignore
 
 [pager]
