@@ -24,9 +24,12 @@ then
   source ~/.localrc
 fi
 
+# add extra completions to fpath
+fpath=($ZSH/submodules/zsh-completions/src $fpath)
+
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
-compinit
+compinit -d ~/.zcompdump -i
 
 # load every completion after autocomplete loads
 for file in ${(M)config_files:#*/completion.zsh}
