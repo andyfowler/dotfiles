@@ -18,11 +18,12 @@ function take() {
   cd $1
 }
 
-if which atom-beta &> /dev/null
-then
-  alias atom="atom-beta"
-  alias apm="apm-beta"
-fi
+# not using atom beta for now
+# if which atom-beta &> /dev/null
+# then
+#   alias atom="atom-beta"
+#   alias apm="apm-beta"
+# fi
 
 # fix some mac commands that don't work in tmux
 alias subl='reattach-to-user-namespace subl'
