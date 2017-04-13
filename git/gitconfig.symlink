@@ -16,6 +16,7 @@
 	push = push --recurse-submodules=check
 	branch-s = for-each-ref --sort='-*committerdate' --format="%(refname:short)" refs/heads refs/remotes
 	br-s = "! git branch-s"
+	recent = ! git reflog | grep 'checkout: moving from' | head -n 50 | egrep -oh ' \\S+$' | awk '!x[$0]++'
 
 [color]
 	diff = auto
