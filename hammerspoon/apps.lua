@@ -6,7 +6,7 @@ local log = hs.logger.new('supermode.lua', 'debug')
 
 statusMessage = message.new('Apps!')
 
-k = hs.hotkey.modal.new('ctrl', 'a')
+k = hs.hotkey.modal.new('ctrl', 's')
 
 closeAllTheThings = function()
     k:exit()
@@ -22,9 +22,10 @@ function k:entered()
         -- Application launchers
         local applicationLaunchers = {
             ['1'] = 'Google Chrome',
-            ['2'] = 'PhpStorm-EAP',
+            ['2'] = 'PhpStorm',
             ['3'] = 'Terminal',
             ['4'] = 'Spotify',
+            ['5'] = 'Finder',
             ['9'] = 'Mail',
             ['0'] = 'Slack',
         }
@@ -74,7 +75,7 @@ function k:entered()
             f = 1,
         }
         if windowKeys[keyPressed] then
-            log.d('windowkeys:', hs.inspect(keyPressed ))
+            -- log.d('windowkeys:', hs.inspect(keyPressed ))
             hs.window.animationDuration = 0
 
             local win = hs.window.focusedWindow()
