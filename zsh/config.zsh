@@ -49,3 +49,4 @@ setopt COMPLETE_ALIASES
 autoload -U url-quote-magic
 zle -N self-insert url-quote-magic
 
+setopt prompt_subst

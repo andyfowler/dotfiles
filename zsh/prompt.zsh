@@ -1,4 +1,4 @@
-autoload -U promptinit && promptinit
+autoload -U promptinit; promptinit
 prompt pure
 
 ## override prompt's dark grey hostname and remove my username — https://github.com/sindresorhus/pure/issues/126
