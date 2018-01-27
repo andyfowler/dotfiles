@@ -26,8 +26,8 @@ function take() {
 # fi
 
 # fix some mac commands that don't work in tmux
-alias subl='reattach-to-user-namespace subl'
-alias open='reattach-to-user-namespace open'
+#alias subl='reattach-to-user-namespace subl'
+#alias open='reattach-to-user-namespace open'
 
 # Pairing in git
 # via http://thepugautomatic.com/2013/11/git-pairing/
