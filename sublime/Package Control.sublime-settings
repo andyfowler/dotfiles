@@ -1,0 +1,19 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Base16 Color Schemes",
+		"GitHubinator",
+		"JSX",
+		"nginx",
+		"Package Control",
+		"SqlBeautifier",
+		"ChangeQuotes",
+		"LESS",
+		"Cucumber",
+		"INI"
+	]
+}
