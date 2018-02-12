@@ -7,7 +7,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-alias vbm="VBoxManage" # goddamn capitalization in binaries
+alias dc="docker-compose"
 
 alias be="bundle exec"
 
