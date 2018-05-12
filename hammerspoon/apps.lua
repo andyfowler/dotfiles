@@ -22,7 +22,8 @@ function k:entered()
         -- Application launchers
         local applicationLaunchers = {
             ['1'] = 'Google Chrome',
-            ['2'] = 'PhpStorm',
+            -- ['2'] = 'IntelliJ IDEA',
+            ['2'] = 'Sublime Text',
             ['3'] = 'Terminal',
             ['4'] = 'Spotify',
             ['5'] = 'Finder',
