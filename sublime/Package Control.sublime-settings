@@ -6,14 +6,22 @@
 	"installed_packages":
 	[
 		"Base16 Color Schemes",
+		"ChangeQuotes",
+		"Cucumber",
+		"Dockerfile Syntax Highlighting",
+		"EditorConfig",
 		"GitHubinator",
+		"GraphQL",
+		"Indent XML",
+		"INI",
+		"JSON Reindent",
 		"JSX",
+		"LESS",
 		"nginx",
 		"Package Control",
 		"SqlBeautifier",
-		"ChangeQuotes",
-		"LESS",
-		"Cucumber",
-		"INI"
+		"SublimeLinter",
+		"SublimeLinter-eslint",
+		"SublimeLinter-php"
 	]
 }
