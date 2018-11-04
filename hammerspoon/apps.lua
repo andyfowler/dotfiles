@@ -8,6 +8,27 @@ statusMessage = message.new('Apps!')
 
 k = hs.hotkey.modal.new('ctrl', 's')
 
+myApps = {
+    ['1'] = 'Google Chrome',
+    -- ['2'] = 'IntelliJ IDEA',
+    -- ['2'] = 'PhpStorm',
+    -- ['2'] = 'Sublime Text',
+    ['2'] = 'Visual Studio Code',
+    ['3'] = 'Terminal',
+    ['4'] = 'Spotify',
+    ['5'] = 'Finder',
+    ['9'] = 'Mail',
+    ['0'] = 'Slack',
+}
+
+hs.hotkey.bind({}, 'f1', function() hs.application.launchOrFocus(myApps['1']) end)
+hs.hotkey.bind({}, 'f2', function() hs.application.launchOrFocus(myApps['2']) end)
+hs.hotkey.bind({}, 'f3', function() hs.application.launchOrFocus(myApps['3']) end)
+hs.hotkey.bind({}, 'f4', function() hs.application.launchOrFocus(myApps['4']) end)
+hs.hotkey.bind({}, 'f5', function() hs.application.launchOrFocus(myApps['5']) end)
+hs.hotkey.bind({}, 'f9', function() hs.application.launchOrFocus(myApps['9']) end)
+hs.hotkey.bind({}, 'f10', function() hs.application.launchOrFocus(myApps['0']) end)
+
 closeAllTheThings = function()
     k:exit()
 end
@@ -20,18 +41,8 @@ function k:entered()
         -- log.d('Event keyboard detected:', hs.inspect(modifiersPressed), keyPressed )
 
         -- Application launchers
-        local applicationLaunchers = {
-            ['1'] = 'Google Chrome',
-            -- ['2'] = 'IntelliJ IDEA',
-            ['2'] = 'Sublime Text',
-            ['3'] = 'Terminal',
-            ['4'] = 'Spotify',
-            ['5'] = 'Finder',
-            ['9'] = 'Mail',
-            ['0'] = 'Slack',
-        }
-        if applicationLaunchers[keyPressed] then
-            hs.application.launchOrFocus(applicationLaunchers[keyPressed])
+        if myApps[keyPressed] then
+            hs.application.launchOrFocus(myApps[keyPressed])
             closeAllTheThings()
             return true
         end
