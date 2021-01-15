@@ -10,13 +10,13 @@ k = hs.hotkey.modal.new('ctrl', 's')
 
 myApps = {
     ['1'] = 'Google Chrome',
-    -- ['2'] = 'IntelliJ IDEA',
     -- ['2'] = 'Sublime Text',
     ['2'] = 'Visual Studio Code',
     ['3'] = 'PhpStorm',
     ['4'] = 'Terminal',
     ['5'] = 'Spotify',
     ['6'] = 'Finder',
+    ['7'] = 'zoom.us',
     ['9'] = 'Superhuman',
     ['0'] = 'Slack',
 }
@@ -27,6 +27,7 @@ hs.hotkey.bind({}, 'f3', function() hs.application.launchOrFocus(myApps['3']) en
 hs.hotkey.bind({}, 'f4', function() hs.application.launchOrFocus(myApps['4']) end)
 hs.hotkey.bind({}, 'f5', function() hs.application.launchOrFocus(myApps['5']) end)
 hs.hotkey.bind({}, 'f6', function() hs.application.launchOrFocus(myApps['6']) end)
+hs.hotkey.bind({}, 'f7', function() hs.application.launchOrFocus(myApps['7']) end)
 hs.hotkey.bind({}, 'f9', function() hs.application.launchOrFocus(myApps['9']) end)
 hs.hotkey.bind({}, 'f10', function() hs.application.launchOrFocus(myApps['0']) end)
 
