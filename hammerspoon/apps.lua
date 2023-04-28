@@ -12,13 +12,14 @@ myApps = {
     ['1'] = 'Google Chrome',
     -- ['2'] = 'Sublime Text',
     ['2'] = 'Visual Studio Code',
-    ['3'] = 'PhpStorm',
+    ['3'] = 'Xcode',
     ['4'] = 'Terminal',
     ['5'] = 'Spotify',
     ['6'] = 'Finder',
     ['7'] = 'zoom.us',
-    ['9'] = 'Superhuman',
+    ['9'] = 'Mail',
     ['0'] = 'Slack',
+    ['19'] = 'Simulator',
 }
 
 hs.hotkey.bind({}, 'f1', function() hs.application.launchOrFocus(myApps['1']) end)
@@ -30,6 +31,7 @@ hs.hotkey.bind({}, 'f6', function() hs.application.launchOrFocus(myApps['6']) en
 hs.hotkey.bind({}, 'f7', function() hs.application.launchOrFocus(myApps['7']) end)
 hs.hotkey.bind({}, 'f9', function() hs.application.launchOrFocus(myApps['9']) end)
 hs.hotkey.bind({}, 'f10', function() hs.application.launchOrFocus(myApps['0']) end)
+hs.hotkey.bind({}, 'f19', function() hs.application.launchOrFocus(myApps['19']) end)
 
 closeAllTheThings = function()
     k:exit()
