@@ -34,9 +34,6 @@
 [merge]
 	tool = opendiff
 
-[credential]
-	helper = osxkeychain
-
 [hub]
 	protocol = https
 
@@ -48,3 +45,9 @@
 	autoSetupRemote = true
 [blame]
 	ignoreRevsFile = .git-blame-ignore-revs
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
