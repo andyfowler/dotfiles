@@ -25,7 +25,7 @@ then
 fi
 
 # add extra completions to fpath
-fpath=($ZSH/submodules/zsh-completions/src $fpath)
+fpath=($ZSH/submodules/zsh-completions/src $HOME/.docker/completions $fpath)
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
@@ -38,3 +38,11 @@ do
 done
 
 unset config_files
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# python uv stuff
+. "$HOME/.local/bin/env"
+
