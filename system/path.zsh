@@ -1,4 +1,4 @@
-export PATH="$HOME/.composer/vendor/bin:/usr/local/share/npm/bin:/usr/local/opt/ruby/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:$ZSH/bin:$HOME/source/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.composer/vendor/bin:/usr/local/share/npm/bin:/usr/local/opt/ruby/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:$ZSH/bin:$HOME/source/bin:$PATH"
 if [[ -d $HOME/.duckdb/cli/latest ]]; 
 then
   export PATH="$HOME/.duckdb/cli/latest:$PATH"
