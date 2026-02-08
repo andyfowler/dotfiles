@@ -48,6 +48,8 @@ bind r source-file ~/.tmux.conf \; display "Reloaded ~/.tmux.conf"
 set -g status-style fg=white,bg=colour234
 set -g pane-border-style fg=colour245
 set -g pane-active-border-style fg=colour39
+set -g window-style 'bg=colour235'
+set -g window-active-style 'bg=black'
 set -g message-style fg=colour16,bg=colour221,bold
 
 set -g status-left '#[fg=colour235,bg=colour252,bold] #S '
