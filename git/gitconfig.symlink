@@ -1,6 +1,7 @@
 [user]
 	name = Andy Fowler
 	email = afowler@nutshell.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICW2m8s1rGgrW3RKIwfTrpbw5gL0vILXgGXExvGNRmRi
 
 [alias]
 	st = status -sb
@@ -51,3 +52,9 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[commit]
+	gpgsign = true
