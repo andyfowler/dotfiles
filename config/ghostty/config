@@ -7,6 +7,13 @@
 # (é, –, —) the way macOS normally does.
 macos-option-as-alt = left
 
+# Shift+Enter inserts a newline in Claude Code instead of submitting. Declaring
+# it here replaces `/terminal-setup`, which would otherwise rewrite Ghostty's
+# preferences outside of git. Enter stays \r (submit); this sends a bare \n,
+# which is the distinction Claude Code keys off -- and it survives tmux, since
+# it's a literal byte rather than a negotiated keyboard-protocol sequence.
+keybind = shift+enter=text:\n
+
 # tmux owns scrollback (history-limit 100000), so Ghostty doesn't need much.
 # Keeping this small avoids two independent buffers fighting over the wheel.
 scrollback-limit = 10000
