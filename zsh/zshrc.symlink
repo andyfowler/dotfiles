@@ -46,3 +46,8 @@ export NVM_DIR="$HOME/.nvm"
 # python uv stuff
 . "$HOME/.local/bin/env"
 
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/afowler/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
