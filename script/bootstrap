@@ -2,7 +2,7 @@
 #
 # bootstrap installs things.
 
-DOTFILES_ROOT="$HOME/.dotfiles/"
+DOTFILES_ROOT="${DOTFILES_ROOT:-$HOME/.dotfiles/}"
 
 set -e
 
@@ -47,75 +47,110 @@ link_files () {
   success "linked $1 to $2"
 }
 
+overwrite_all=false
+backup_all=false
+skip_all=false
+
+# link_dotfile SOURCE DEST -- symlinks SOURCE to DEST, prompting if DEST is
+# already there. Answers of [S]kip/[O]verwrite/[B]ackup all persist across
+# every call, so you only get asked once per bootstrap run.
+link_dotfile () {
+  source="$1"
+  dest="$2"
+
+  # tr -s / so a link recorded as ~/.dotfiles//foo still matches ~/.dotfiles/foo;
+  # older runs of this script baked in the doubled slash
+  if [ -L $dest ] && [ "`readlink $dest | tr -s /`" = "`echo $source | tr -s /`" ]
+  then
+    success "already linked $dest"
+    return
+  fi
+
+  if [ -f $dest ] || [ -d $dest ] || [ -L $dest ]
+  then
+
+    overwrite=false
+    backup=false
+    skip=false
+
+    if [ "$overwrite_all" = "false" ] && [ "$backup_all" = "false" ] && [ "$skip_all" = "false" ]
+    then
+      user "File already exists: $dest, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+      read action
+
+      case "$action" in
+        o )
+          overwrite=true;;
+        O )
+          overwrite_all=true;;
+        b )
+          backup=true;;
+        B )
+          backup_all=true;;
+        s )
+          skip=true;;
+        S )
+          skip_all=true;;
+        * )
+          ;;
+      esac
+    fi
+
+    if [ "$overwrite" = "true" ] || [ "$overwrite_all" = "true" ]
+    then
+      rm -rf $dest
+      success "removed $dest"
+    fi
+
+    if [ "$backup" = "true" ] || [ "$backup_all" = "true" ]
+    then
+      mv $dest $dest\.backup
+      success "moved $dest to $dest.backup"
+    fi
+
+    if [ "$skip" = "false" ] && [ "$skip_all" = "false" ]
+    then
+      link_files $source $dest
+    else
+      success "skipped $source"
+    fi
+
+  else
+    link_files $source $dest
+  fi
+}
+
 install_dotfiles () {
   info 'installing dotfiles'
 
-  overwrite_all=false
-  backup_all=false
-  skip_all=false
-
   for source in `find $DOTFILES_ROOT -maxdepth 2 -name \*.symlink`
   do
-    dest="$HOME/.`basename \"${source%.*}\"`"
+    link_dotfile "$source" "$HOME/.`basename \"${source%.*}\"`"
+  done
+}
 
-    if [ -f $dest ] || [ -d $dest ]
-    then
+# Anything under config/ mirrors ~/.config, e.g. config/ghostty ->
+# ~/.config/ghostty. Whole directories are linked rather than individual
+# files, so extra files an app writes alongside its config come along too.
+# This exists because the *.symlink convention can only target ~/.<name>:
+# naming a file config.symlink would resolve to ~/.config itself and an
+# [o]verwrite would rm -rf the entire directory.
+install_config_dirs () {
+  info 'installing ~/.config entries'
 
-      overwrite=false
-      backup=false
-      skip=false
+  [ -d "$DOTFILES_ROOT/config" ] || return 0
+  mkdir -p "$HOME/.config"
 
-      if [ "$overwrite_all" = "false" ] && [ "$backup_all" = "false" ] && [ "$skip_all" = "false" ]
-      then
-        user "File already exists: `basename $source`, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-        read action
-
-        case "$action" in
-          o )
-            overwrite=true;;
-          O )
-            overwrite_all=true;;
-          b )
-            backup=true;;
-          B )
-            backup_all=true;;
-          s )
-            skip=true;;
-          S )
-            skip_all=true;;
-          * )
-            ;;
-        esac
-      fi
-
-      if [ "$overwrite" = "true" ] || [ "$overwrite_all" = "true" ]
-      then
-        rm -rf $dest
-        success "removed $dest"
-      fi
-
-      if [ "$backup" = "true" ] || [ "$backup_all" = "true" ]
-      then
-        mv $dest $dest\.backup
-        success "moved $dest to $dest.backup"
-      fi
-
-      if [ "$skip" = "false" ] && [ "$skip_all" = "false" ]
-      then
-        link_files $source $dest
-      else
-        success "skipped $source"
-      fi
-
-    else
-      link_files $source $dest
-    fi
-
+  for source in "$DOTFILES_ROOT"/config/*
+  do
+    [ -e "$source" ] || continue
+    link_dotfile "$source" "$HOME/.config/`basename \"$source\"`"
   done
 }
 
 setup_gitconfig
 install_dotfiles
+install_config_dirs
 
 echo ''
 echo '  All installed!'

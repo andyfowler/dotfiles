@@ -4,21 +4,26 @@ bind-key ` send-prefix
 bind-key C-b set-option -g prefix C-b
 bind-key C-a set-option -g prefix `
 
-bind | split-window -h
-bind _ split-window -v
+# splits/new windows inherit the current pane's directory. essential when
+# you're bouncing between repos and don't want every new pane in $HOME
+bind | split-window -h -c "#{pane_current_path}"
+bind _ split-window -v -c "#{pane_current_path}"
+bind c new-window -c "#{pane_current_path}"
 
 bind-key s choose-session
+# zoomable tree of every session+window, with previews. much better than the
+# default `w` when you have several agents running in different places
+bind-key w choose-tree -Zw
 
-set -g default-command "command -v reattach-to-user-namespace >/dev/null && reattach-to-user-namespace -l zsh || zsh"
+# reattach-to-user-namespace hasn't been needed since macOS 10.12; this now
+# just resolves to a plain (non-login) $SHELL, matching prior behavior
+set -g default-command "${SHELL}"
 
 # live dangerous, no confirmation on killing windows/panes
 unbind-key &
 bind-key & kill-window
 unbind-key x
 bind-key x kill-pane
-
-set -g pane-border-style bg=black,fg=white
-set -g pane-active-border-style bg=colour232,fg=colour27
 
 # Vim-style pane movement
 bind h select-pane -L
@@ -44,7 +49,124 @@ bind -r C-l resize-pane -R 5
 # reload tmux config
 bind r source-file ~/.tmux.conf \; display "Reloaded ~/.tmux.conf"
 
-# new status bar settings from @andrewsardone
+# ---------------------------------------------------------------------------
+# terminal capabilities
+# ---------------------------------------------------------------------------
+
+# tmux-256color (not screen-256color) so italics, 256 colors and modern
+# terminfo caps are advertised correctly to programs inside tmux
+set -g default-terminal "tmux-256color"
+
+# truecolor. tmux auto-detects it from the client's COLORTERM, but be explicit
+# for terminals that don't always advertise it. deliberately NOT listing bare
+# xterm-256color, since Apple Terminal reports that and can't do 24-bit color
+set -as terminal-features 'xterm-ghostty:RGB'
+set -as terminal-features 'xterm-kitty:RGB'
+set -as terminal-features 'alacritty:RGB'
+set -as terminal-features 'wezterm:RGB'
+set -as terminal-features 'iTerm2*:RGB'
+
+# OSC 8 hyperlinks (Claude Code emits clickable file paths) and styled
+# underlines. harmless on terminals that ignore them
+set -as terminal-features '*:hyperlinks'
+set -as terminal-features '*:usstyle'
+
+# let OSC 52 clipboard writes from inside a pane reach the system clipboard
+set -g set-clipboard on
+
+# apps inside tmux learn about focus gain/loss
+set -g focus-events on
+
+# refresh terminal-identity vars on every (re)attach. without these, the values
+# captured when the server first started persist forever -- so switching host
+# terminals leaves new panes claiming they're still in the old one
+set -ga update-environment 'TERM_PROGRAM'
+set -ga update-environment 'TERM_PROGRAM_VERSION'
+set -ga update-environment 'TERM_SESSION_ID'
+set -ga update-environment 'COLORTERM'
+set -ga update-environment 'GHOSTTY_RESOURCES_DIR'
+set -ga update-environment 'GHOSTTY_BIN_DIR'
+set -ga update-environment 'TERMINFO'
+
+set -g set-titles on
+setw -g automatic-rename off
+setw -g allow-rename off
+
+# ---------------------------------------------------------------------------
+# claude code / agent ergonomics
+# ---------------------------------------------------------------------------
+
+# passthrough for DCS sequences: inline images, progress bars, and any
+# escape sequence Claude Code wants to hand to the host terminal untouched
+set -g allow-passthrough on
+
+# Shift+Enter / Ctrl+Enter for newlines in the Claude Code prompt
+set -s extended-keys on
+set -as terminal-features 'xterm*:extkeys'
+
+# agents are chatty and you often need to scroll back a long way to find the
+# thing it did twenty tool calls ago. ~40MB/pane worst case, fine on this box
+set -g history-limit 100000
+
+# Claude Code rings the bell when it finishes or needs your input. surface that
+# in the status bar so you can tell at a glance which window wants attention.
+# activity monitoring stays OFF -- streaming output would flag it constantly
+set -g monitor-bell on
+set -g monitor-activity off
+set -g bell-action other
+set -g visual-bell off
+
+# scroll agent output with the wheel, click to focus panes, drag borders.
+# note: this captures the mouse, so hold Option (Ghostty/iTerm/Terminal.app)
+# to make a native terminal selection instead. prefix+T toggles it off
+set -g mouse on
+bind T set -g mouse \; display "mouse: #{?mouse,on,off}"
+
+# double-click selects a whole file path instead of stopping at - _ @ /
+set -g word-separators ' '
+
+# per-pane title bar. Claude Code sets the pane title via OSC, so with several
+# agents running side by side you can see which is doing what
+set -g pane-border-status top
+set -g pane-border-format ' #{pane_index} #{?#{m:#{host_short}*,#{pane_title}},#{pane_current_command},#{pane_title}} '
+
+# prefix-free pane jumping. numbers match the ones on the pane borders and
+# the prefix+q overlay. requires `macos-option-as-alt` in the Ghostty config,
+# otherwise macOS eats Option as a dead key for accented characters
+bind -n M-1 select-pane -t 1
+bind -n M-2 select-pane -t 2
+bind -n M-3 select-pane -t 3
+bind -n M-4 select-pane -t 4
+bind -n M-5 select-pane -t 5
+bind -n M-6 select-pane -t 6
+bind -n M-7 select-pane -t 7
+bind -n M-8 select-pane -t 8
+bind -n M-9 select-pane -t 9
+
+# prefix+/ jumps straight into search-backwards through scrollback
+bind / copy-mode \; send-keys ?
+
+# scratch popup in the current directory, for a quick git/grep without
+# disturbing the pane layout
+bind C-p display-popup -E -w 80% -h 80% -d "#{pane_current_path}"
+
+# ---------------------------------------------------------------------------
+# copy mode
+# ---------------------------------------------------------------------------
+
+set-option -g status-keys emacs
+set-window-option -g mode-keys vi
+
+bind -T copy-mode-vi v send -X begin-selection
+bind -T copy-mode-vi C-v send -X rectangle-toggle
+bind -T copy-mode-vi y send -X copy-pipe-and-cancel 'pbcopy'
+# releasing a mouse drag copies the selection but stays in copy mode
+bind -T copy-mode-vi MouseDragEnd1Pane send -X copy-pipe-no-clear 'pbcopy'
+
+# ---------------------------------------------------------------------------
+# status bar (from @andrewsardone, plus a bell indicator)
+# ---------------------------------------------------------------------------
+
 set -g status-style fg=white,bg=colour234
 set -g pane-border-style fg=colour245
 set -g pane-active-border-style fg=colour39
@@ -52,32 +174,28 @@ set -g window-style 'bg=colour235'
 set -g window-active-style 'bg=black'
 set -g message-style fg=colour16,bg=colour221,bold
 
-set -g status-left '#[fg=colour235,bg=colour252,bold] #S '
-set -g window-status-format '#[fg=white,bg=colour234] #I #W '
+set -g status-left-length 30
+set -g status-left '#[fg=colour235,bg=colour252,bold] #S #[default] '
+set -g window-status-format '#[fg=white,bg=colour234] #I #W#{?window_bell_flag, ●,} '
 set -g window-status-current-format '#[fg=colour25,bg=colour39,noreverse,bold] #I #W '
+# windows where an agent rang the bell go amber until you visit them
+set -g window-status-bell-style 'fg=colour232,bg=colour214,bold'
 
-set -g status-right-length 0
-set -g status-right ''
+set -g status-interval 5
+set -g status-right-length 60
+set -g status-right '#[fg=colour39,bold]#{?client_prefix,PREFIX ,}#[fg=colour245]#{pane_current_command} #[fg=colour252]%-I:%M %p '
 
-# start numbering windows @ 1
+# start numbering windows @ 1, and close the gaps when one is killed
 set -g base-index 1
+setw -g pane-base-index 1
+set -g renumber-windows on
 
-set-option -g status-keys emacs
-set-window-option -g mode-keys vi
+# killing the last window of a session drops you into another session
+# instead of detaching entirely
+set -g detach-on-destroy off
 
 set -sg escape-time 0
 
 # keep tmux msgs around longer
 set -g display-time 3000
-
-# scrollback buffer size
-set -g history-limit 15000
-
-# open a man page in new pane or window
-bind m command-prompt -p "man page:" "split-window -v 'exec man %%'"
-bind M command-prompt -p "Man page:" "new-window -n 'man %1' 'exec man %1'"
-
-set -g default-terminal "screen-256color"
-set -g set-titles on
-setw -g automatic-rename on
-
+set -g display-panes-time 3000

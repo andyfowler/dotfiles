@@ -1,0 +1,32 @@
+# Ghostty config
+# Linked by script/bootstrap: ~/.config/ghostty -> ~/.dotfiles/config/ghostty
+# Everything under ~/.dotfiles/config/ mirrors ~/.config/.
+
+# Required for tmux's Alt+N pane jumping. `left` means the LEFT Option key
+# acts as Alt/Meta, while the RIGHT one still types accented characters
+# (é, –, —) the way macOS normally does.
+macos-option-as-alt = left
+
+# tmux owns scrollback (history-limit 100000), so Ghostty doesn't need much.
+# Keeping this small avoids two independent buffers fighting over the wheel.
+scrollback-limit = 10000
+
+# Claude Code draws a full-height TUI; padding keeps it off the window edge
+# without the balance shifting as the window resizes.
+window-padding-x = 4
+window-padding-y = 2
+window-padding-balance = true
+
+# tmux already prints a session/window bar, so skip Ghostty's own tabs/titlebar
+# chrome unless you actually open non-tmux windows.
+macos-titlebar-style = tabs
+
+# Don't nag when closing a pane running a shell; tmux sessions survive anyway.
+confirm-close-surface = false
+
+mouse-hide-while-typing = true
+
+# Shell integration: cursor handling is left to tmux + the zsh prompt to avoid
+# the two fighting over cursor shape.
+shell-integration = zsh
+shell-integration-features = no-cursor
