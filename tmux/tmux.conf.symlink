@@ -130,9 +130,23 @@ set -g word-separators ' '
 set -g pane-border-status top
 set -g pane-border-format ' #{pane_index} #{?#{m:#{host_short}*,#{pane_title}},#{pane_current_command},#{pane_title}} '
 
-# prefix-free pane jumping. numbers match the ones on the pane borders and
-# the prefix+q overlay. requires `macos-option-as-alt` in the Ghostty config,
-# otherwise macOS eats Option as a dead key for accented characters
+# tmux binds prefix+M-1..M-5 to select-layout presets out of the box, so a
+# stray Alt+digit near the prefix key silently reflows every pane in the
+# window with no undo prompt. Unbinding them is also what makes the root-table
+# Alt+digit bindings below safe: with the presets gone, fumbling the backtick
+# before an Alt+digit does nothing instead of destroying the layout.
+unbind-key M-1
+unbind-key M-2
+unbind-key M-3
+unbind-key M-4
+unbind-key M-5
+
+# prefix-free pane jumping. numbers match the pane borders and the prefix+q
+# overlay. requires `macos-option-as-alt` in the Ghostty config, or macOS eats
+# Option as a dead key for accented characters.
+# trade-off: this shadows zsh's Alt+digit `digit-argument` (repeat count) in
+# shell panes. Drop these nine lines to get it back; prefix+q then a digit
+# still jumps between panes without any root-table binding.
 bind -n M-1 select-pane -t 1
 bind -n M-2 select-pane -t 2
 bind -n M-3 select-pane -t 3
