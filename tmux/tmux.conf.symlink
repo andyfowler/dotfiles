@@ -193,8 +193,13 @@ set -g window-style 'bg=colour235'
 set -g window-active-style 'bg=black'
 set -g message-style fg=colour16,bg=colour221,bold
 
-set -g status-left-length 30
-set -g status-left '#[fg=colour235,bg=colour252,bold] #S #[default] '
+# host chip, then session chip. #h is the machine running the tmux *server* --
+# so when you ssh somewhere and attach to a tmux over there, this reads as that
+# remote box, which is the whole point. (a pane that merely ssh'd out still
+# shows this host; the pane border/status-right show the command instead.)
+# #h is the short hostname; use #H if you want the fully-qualified one.
+set -g status-left-length 50
+set -g status-left '#[fg=colour252,bg=colour238,bold] #h #[fg=colour235,bg=colour252,bold] #S #[default] '
 set -g window-status-format '#[fg=white,bg=colour234] #I #W#{?window_bell_flag, ●,} '
 set -g window-status-current-format '#[fg=colour25,bg=colour39,noreverse,bold] #I #W '
 # windows where an agent rang the bell go amber until you visit them
