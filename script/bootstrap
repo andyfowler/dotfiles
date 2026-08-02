@@ -52,6 +52,40 @@ setup_gitconfig () {
 # ~/.gitconfig.local to sign some other way, that's yours to keep.
 OP_SSH_SIGN='/Applications/1Password.app/Contents/MacOS/op-ssh-sign'
 
+# Whether op-ssh-sign can actually produce a signature *right now*, rather than
+# whether the binary happens to be on disk. Presence is not a good proxy: on a
+# Mac you've ssh'd into, /Applications/1Password.app exists and the path
+# resolves fine, but the agent socket belongs to the GUI login session, so
+# signing dies with "Couldn't get agent socket?" instead. Both end the same
+# way -- "failed to write commit object", mid-rebase.
+#
+# So just try it. A throwaway repo, a real signed empty commit, discard it.
+# This may raise a 1Password auth prompt during bootstrap; that's the point.
+op_ssh_sign_works () {
+  [ -x "$OP_SSH_SIGN" ] || return 1
+
+  signingkey=`git config --get user.signingkey 2>/dev/null`
+  [ -n "$signingkey" ] || return 1
+
+  probe=`mktemp -d` || return 1
+  git init -q "$probe" 2>/dev/null || { rm -rf "$probe"; return 1; }
+
+  if git -C "$probe" \
+       -c user.name=probe -c user.email=probe@localhost \
+       -c gpg.format=ssh \
+       -c gpg.ssh.program="$OP_SSH_SIGN" \
+       -c user.signingkey="$signingkey" \
+       -c commit.gpgsign=true \
+       commit -q --allow-empty -m probe >/dev/null 2>&1
+  then
+    rm -rf "$probe"
+    return 0
+  fi
+
+  rm -rf "$probe"
+  return 1
+}
+
 setup_git_signing () {
   if [ -f "$HOME/.gitconfig.local" ]
   then
@@ -59,9 +93,9 @@ setup_git_signing () {
     return 0
   fi
 
-  if ! [ -x "$OP_SSH_SIGN" ]
+  if ! op_ssh_sign_works
   then
-    success 'git signing (no 1Password on this box, commits stay unsigned)'
+    success 'git signing (op-ssh-sign unavailable here, commits stay unsigned)'
     return 0
   fi
 
