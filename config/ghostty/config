@@ -14,9 +14,12 @@ macos-option-as-alt = left
 # it's a literal byte rather than a negotiated keyboard-protocol sequence.
 keybind = shift+enter=text:\n
 
-# tmux owns scrollback (history-limit 100000), so Ghostty doesn't need much.
-# Keeping this small avoids two independent buffers fighting over the wheel.
-scrollback-limit = 10000
+# tmux owns scrollback (history-limit 100000), so Ghostty doesn't need much --
+# but this is measured in BYTES, not lines. 10000 was ~10KB, i.e. a couple of
+# screens, which silently gutted scrollback in non-tmux windows (plain ssh).
+# 10MB is Ghostty's own default; it's allocated lazily, so it costs nothing
+# until actually used.
+scrollback-limit = 10000000
 
 # Claude Code draws a full-height TUI; padding keeps it off the window edge
 # without the balance shifting as the window resizes.
@@ -26,7 +29,7 @@ window-padding-balance = true
 
 # tmux already prints a session/window bar, so skip Ghostty's own tabs/titlebar
 # chrome unless you actually open non-tmux windows.
-macos-titlebar-style = tabs
+macos-titlebar-style = transparent
 
 # Don't nag when closing a pane running a shell; tmux sessions survive anyway.
 confirm-close-surface = false
@@ -35,5 +38,24 @@ mouse-hide-while-typing = true
 
 # Shell integration: cursor handling is left to tmux + the zsh prompt to avoid
 # the two fighting over cursor shape.
+#
+# Omitted features keep their default, so only the ones named here change.
+#
+# ssh-env + ssh-terminfo fix plain `ssh` from a non-tmux window. SSH always
+# forwards TERM, so the remote host receives `xterm-ghostty`, has no terminfo
+# entry for it, and zsh's line editor redraws with bogus cursor-movement caps
+# -- which shows up as duplicated/misplaced characters as you type. Inside tmux
+# this never happens, because TERM there is the universally-known
+# tmux-256color.
+#
+#   ssh-terminfo  installs Ghostty's terminfo on the remote via infocmp | tic,
+#                 then caches the host so it's a one-time cost per machine.
+#                 (`ghostty +ssh-cache` manages that cache.)
+#   ssh-env       the fallback for hosts where tic isn't available or /usr is
+#                 read-only: downgrades TERM to xterm-256color and forwards
+#                 COLORTERM/TERM_PROGRAM instead of leaving a broken TERM.
+#
+# Both are off by default in Ghostty; they're what `/terminal-setup`-style
+# guides paper over. Requires shell-integration to be active (it is, above).
 shell-integration = zsh
-shell-integration-features = no-cursor
+shell-integration-features = no-cursor,ssh-env,ssh-terminfo

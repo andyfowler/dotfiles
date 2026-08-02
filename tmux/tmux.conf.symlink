@@ -15,8 +15,13 @@ bind-key s choose-session
 # default `w` when you have several agents running in different places
 bind-key w choose-tree -Zw
 
-# reattach-to-user-namespace hasn't been needed since macOS 10.12; this now
-# just resolves to a plain (non-login) $SHELL, matching prior behavior
+# reattach-to-user-namespace hasn't been needed since macOS 10.12. note this is
+# NOT quite the prior behavior: the old command passed `-l`, so panes were
+# login shells and re-ran ~/.zprofile (brew shellenv). Panes are now non-login
+# and inherit their env from the Ghostty window that started the tmux server --
+# which is itself a login shell, so PATH still comes out right. Switch to
+# "${SHELL} -l" if a pane ever starts up missing brew, at the cost of
+# re-prepending the brew paths on every new pane.
 set -g default-command "${SHELL}"
 
 # live dangerous, no confirmation on killing windows/panes
