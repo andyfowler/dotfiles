@@ -52,9 +52,23 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
+; identity, not machine state -- both are inert unless something turns on
+; commit.gpgsign, which only ~/.gitconfig.local does.
 [gpg]
 	format = ssh
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-[commit]
-	gpgsign = true
+
+; Machine-specific overrides, and the one thing that must NOT be tracked:
+; the 1Password signer. gpg.ssh.program is an absolute path into
+; /Applications, so hardcoding it here made every box without 1Password
+; installed fail at "cannot exec op-ssh-sign / failed to write commit
+; object" -- mid-rebase, which is the worst time to find out.
+;
+; git silently ignores an include whose file is missing, so this is the
+; conditional that git config itself doesn't give us: there's no includeIf
+; for "hostname" or "this file exists". Boxes with 1Password get the file
+; from script/bootstrap and sign; boxes without it simply never turn
+; commit.gpgsign on and commit unsigned.
+;
+; Keep it last so anything in it wins over the settings above.
+[include]
+	path = ~/.gitconfig.local
