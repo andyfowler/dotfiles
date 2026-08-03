@@ -56,7 +56,6 @@
 ; commit.gpgsign, which only ~/.gitconfig.local does.
 [gpg]
 	format = ssh
-
 ; Machine-specific overrides, and the one thing that must NOT be tracked:
 ; the 1Password signer. gpg.ssh.program is an absolute path into
 ; /Applications, so hardcoding it here made every box without 1Password
@@ -72,3 +71,8 @@
 ; Keep it last so anything in it wins over the settings above.
 [include]
 	path = ~/.gitconfig.local
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	allowedSignersFile = /Users/afowler/.ssh/allowed_signers
+[commit]
+	gpgsign = true
