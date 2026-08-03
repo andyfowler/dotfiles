@@ -46,12 +46,17 @@
 	autoSetupRemote = true
 [blame]
 	ignoreRevsFile = .git-blame-ignore-revs
+; Resolve gh through PATH rather than hardcoding /opt/homebrew/bin/gh: that
+; path only exists on Apple-silicon Homebrew, so on Linux (gh at /usr/bin/gh)
+; and Intel macs the helper silently failed and git fell back to prompting for
+; a username/password that GitHub no longer accepts. The leading `!` already
+; runs the value through a shell, so a bare `gh` gets PATH lookup for free.
 [credential "https://github.com"]
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper =
+	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper =
+	helper = !gh auth git-credential
 ; identity, not machine state -- both are inert unless something turns on
 ; commit.gpgsign, which only ~/.gitconfig.local does.
 [gpg]
