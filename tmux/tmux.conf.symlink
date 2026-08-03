@@ -190,7 +190,10 @@ set -g status-style fg=white,bg=colour234
 set -g pane-border-style fg=colour245
 set -g pane-active-border-style fg=colour39
 set -g window-style 'bg=colour235'
-set -g window-active-style 'bg=black'
+# explicit hex, not `bg=black`: ANSI color 0 is whatever the host terminal's
+# palette says, which under Ghostty's default is a near-black gray -- close
+# enough to colour235 that the focused pane barely stood out
+set -g window-active-style 'bg=#000000'
 set -g message-style fg=colour16,bg=colour221,bold
 
 # host chip, then session chip. #h is the machine running the tmux *server* --
