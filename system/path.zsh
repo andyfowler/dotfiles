@@ -4,6 +4,12 @@ then
   export PATH="$HOME/.duckdb/cli/latest:$PATH"
 fi
 
+if [[ -d $HOME/Library/Android/sdk ]];
+then
+  export ANDROID_HOME="$HOME/Library/Android/sdk"
+  export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools"
+fi
+
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 
 export GOPATH="$HOME/source"
