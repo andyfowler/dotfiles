@@ -58,9 +58,14 @@
 	helper =
 	helper = !gh auth git-credential
 ; identity, not machine state -- both are inert unless something turns on
-; commit.gpgsign, which only ~/.gitconfig.local does.
+; commit.gpgsign, which only ~/.gitconfig.local does. allowedSignersFile is
+; ~-relative rather than /Users/afowler so it resolves on Linux too; it only
+; ever affects *verifying* a signature, never making a commit, so a missing
+; file costs nothing.
 [gpg]
 	format = ssh
+[gpg "ssh"]
+	allowedSignersFile = ~/.ssh/allowed_signers
 ; Machine-specific overrides, and the one thing that must NOT be tracked:
 ; the 1Password signer. gpg.ssh.program is an absolute path into
 ; /Applications, so hardcoding it here made every box without 1Password
@@ -76,8 +81,10 @@
 ; Keep it last so anything in it wins over the settings above.
 [include]
 	path = ~/.gitconfig.local
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-	allowedSignersFile = /Users/afowler/.ssh/allowed_signers
-[commit]
-	gpgsign = true
+
+; NOTHING BELOW THE INCLUDE. `git config --global <key>` appends to the end of
+; this file, which lands *after* the include and silently outranks it -- that is
+; exactly how gpg.ssh.program and commit.gpgsign got back in here and broke
+; commits on every non-Mac box. Machine-specific values belong in
+; ~/.gitconfig.local (script/bootstrap writes it); use
+; `git config --file ~/.gitconfig.local <key> <value>` to set them.
