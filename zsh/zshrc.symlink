@@ -51,3 +51,6 @@ fpath=(/Users/afowler/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+# Android builds (Expo run:android / Gradle). AGP fails under JDK 24+, so not Android Studio's bundled JDK.
+export JAVA_HOME="/opt/homebrew/opt/openjdk@17"

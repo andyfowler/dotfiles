@@ -81,6 +81,7 @@ set -g set-clipboard on
 
 # apps inside tmux learn about focus gain/loss
 set -g focus-events on
+set -g allow-passthrough on
 
 # refresh terminal-identity vars on every (re)attach. without these, the values
 # captured when the server first started persist forever -- so switching host
