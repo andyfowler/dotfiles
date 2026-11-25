@@ -33,5 +33,6 @@
   "attribution": {
     "commit": ""
   },
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "remoteControlAtStartup": true
 }
