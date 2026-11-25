@@ -220,40 +220,32 @@ install_config_dirs () {
 
 # Files under claude/ link one by one into ~/.claude, e.g. claude/statusline.sh
 # -> ~/.claude/statusline.sh. Never the directory itself: ~/.claude also holds
-# Claude Code's history, sessions and logins. settings.json stays untracked
-# (it changes constantly); this only adds the statusLine entry when missing.
+# Claude Code's history, sessions and logins.
+#
+# That includes settings.json, so /model, /effort and /config changes show up
+# here as diffs to commit. This repo is public, so anything private to one
+# machine (an autoMode block naming private repos, say) goes in managed
+# settings instead, which Claude Code also reads: on Linux
+# /etc/claude-code/managed-settings.json, on macOS
+# /Library/Application Support/ClaudeCode/managed-settings.json. autoMode
+# can't go in a project's .claude/ settings; Claude Code ignores it there.
 install_claude_files () {
   info 'installing ~/.claude entries'
 
   [ -d "$DOTFILES_ROOT/claude" ] || return 0
   mkdir -p "$HOME/.claude"
 
+  settings="$HOME/.claude/settings.json"
+  if [ -f "$settings" ] && [ ! -L "$settings" ] && grep -q '"autoMode"' "$settings"
+  then
+    printf "\r\033[2K  [ \033[0;33m!!\033[0m ] $settings has an autoMode block: move it to managed settings before you [o]verwrite\n"
+  fi
+
   for source in "$DOTFILES_ROOT"/claude/*
   do
     [ -f "$source" ] || continue
     link_dotfile "$source" "$HOME/.claude/`basename \"$source\"`"
   done
-
-  if ! command -v jq >/dev/null
-  then
-    success 'skipped Claude statusLine setting (needs jq)'
-    return 0
-  fi
-
-  settings="$HOME/.claude/settings.json"
-  [ -f "$settings" ] || echo '{}' > "$settings"
-  tmp=`mktemp`
-  if jq -e 'has("statusLine")' "$settings" >/dev/null 2>&1
-  then
-    success "statusLine already set in $settings"
-  elif jq '.statusLine = {type: "command", command: "~/.claude/statusline.sh"}' "$settings" > "$tmp"
-  then
-    mv "$tmp" "$settings"
-    success "set statusLine in $settings"
-  else
-    success "skipped statusLine: $settings isn't valid JSON"
-  fi
-  rm -f "$tmp"
 }
 
 setup_gitconfig
